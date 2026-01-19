@@ -5,12 +5,12 @@ echo "=== Dev Container Starting ==="
 
 # Set user password if provided
 if [ -n "$USER_PASSWORD" ]; then
-    echo "dev:$USER_PASSWORD" | chpasswd
-    echo "Password set for dev user"
+    echo "magnus:$USER_PASSWORD" | chpasswd
+    echo "Password set for magnus user"
 fi
 
 # Fix home directory ownership (for mounted volumes)
-chown -R dev:dev /home/dev 2>/dev/null || true
+chown -R magnus:magnus /home/magnus 2>/dev/null || true
 
 # Run any environment-specific init scripts
 if [ -d /init.d ] && [ "$(ls -A /init.d 2>/dev/null)" ]; then
@@ -24,12 +24,12 @@ if [ -d /init.d ] && [ "$(ls -A /init.d 2>/dev/null)" ]; then
 fi
 
 echo "=== Dev Container Ready ==="
-echo "User: dev (home=/home/dev)"
+echo "User: magnus (home=/home/magnus)"
 
 # Start SSH daemon
 /usr/sbin/sshd -D &
 echo "SSH daemon started"
 
-# Start code-server as dev user
+# Start code-server as magnus user
 echo "Starting code-server..."
-exec su - dev -c 'code-server --bind-addr 0.0.0.0:8080 --auth none /workspace'
+exec su - magnus -c 'code-server --bind-addr 0.0.0.0:8080 --auth none /workspace'

@@ -2,7 +2,7 @@ FROM archlinux:latest
 
 # System packages
 RUN pacman -Syu --noconfirm --needed \
-    base-devel \
+    base-magnusel \
     git \
     openssh \
     curl \
@@ -55,14 +55,14 @@ RUN pacman -Syu --noconfirm --needed \
     postgresql \
     && pacman -Scc --noconfirm
 
-# Create dev user (uid 1000)
-RUN useradd -m -u 1000 -s /bin/bash -G wheel,docker dev \
+# Create magnus user (uid 1000)
+RUN useradd -m -u 1000 -s /bin/bash -G wheel,docker magnus \
     && echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
 
 # SSH setup
 RUN ssh-keygen -A \
     && mkdir -p /run/sshd \
-    && echo -e "PermitRootLogin no\nPasswordAuthentication yes\nAllowUsers dev" > /etc/ssh/sshd_config.d/dev-container.conf
+    && echo -e "PermitRootLogin no\nPasswordAuthentication yes\nAllowUsers magnus" > /etc/ssh/sshd_config.d/magnus-container.conf
 
 # Install code-server
 RUN CODE_SERVER_VERSION=$(curl -s https://api.github.com/repos/coder/code-server/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/') \
@@ -77,9 +77,9 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     && tar xf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit \
     && rm /tmp/lazygit.tar.gz
 
-# Switch to dev user for user-level installs
-USER dev
-WORKDIR /home/dev
+# Switch to magnus user for user-level installs
+USER magnus
+WORKDIR /home/magnus
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \

@@ -32,7 +32,7 @@ image: ghcr.io/nebulatechsolutions/dev-container-image:latest
 
 ### Environment Variables
 
-- `USER_PASSWORD` - Password for the `dev` user (SSH login)
+- `USER_PASSWORD` - Password for the `magnus` user (SSH login)
 - `TZ` - Timezone (default: UTC)
 
 ### Volumes
