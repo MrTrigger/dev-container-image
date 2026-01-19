@@ -188,8 +188,6 @@ source /usr/share/fzf/completion.zsh 2>/dev/null || true
 # Starship prompt
 eval "$(starship init zsh)"
 
-cd /workspace 2>/dev/null || true
-
 # User customizations (create ~/.zshrc.local for your own settings)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 ZSHRC

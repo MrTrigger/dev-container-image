@@ -87,4 +87,4 @@ echo "SSH daemon started"
 
 # Start code-server as magnus user
 echo "Starting code-server..."
-exec su - magnus -c 'code-server --bind-addr 0.0.0.0:8080 --auth none /workspace'
+exec su - magnus -c 'code-server --bind-addr 0.0.0.0:8080 --auth none'
