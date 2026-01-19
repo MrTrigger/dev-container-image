@@ -194,12 +194,16 @@ cd /workspace 2>/dev/null || true
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 ZSHRC
 
+# Create .zprofile to source .zshrc for login shells (e.g., SSH)
+RUN echo 'source ~/.zshrc' > ~/.zprofile
+
 # Back to root for entrypoint and skel setup
 USER root
 
 # Copy configs to /etc/skel (used by entrypoint for persistent volumes)
 RUN mkdir -p /etc/skel/.config \
     && cp /home/magnus/.zshrc /etc/skel/.zshrc \
+    && cp /home/magnus/.zprofile /etc/skel/.zprofile \
     && cp /home/magnus/.config/starship.toml /etc/skel/.config/starship.toml
 
 # Create init.d directory for environment-specific scripts

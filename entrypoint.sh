@@ -34,6 +34,13 @@ if [ ! -f /home/magnus/.zshrc ] || ! grep -q "starship init zsh" /home/magnus/.z
     chown magnus:magnus /home/magnus/.zshrc
 fi
 
+# Ensure .zprofile exists (sources .zshrc for login shells like SSH)
+if [ ! -f /home/magnus/.zprofile ]; then
+    echo "Setting up .zprofile..."
+    cp /etc/skel/.zprofile /home/magnus/.zprofile
+    chown magnus:magnus /home/magnus/.zprofile
+fi
+
 # Ensure starship config exists
 if [ ! -f /home/magnus/.config/starship.toml ] && [ -f /etc/skel/.config/starship.toml ]; then
     mkdir -p /home/magnus/.config
