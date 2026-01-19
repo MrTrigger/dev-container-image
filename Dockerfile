@@ -118,6 +118,10 @@ RUN git clone https://github.com/LazyVim/starter ~/.config/nvim \
 # Copy starship config
 COPY --chown=magnus:magnus starship.toml /home/magnus/.config/starship.toml
 
+# Copy bat config and themes
+COPY --chown=magnus:magnus bat /home/magnus/.config/bat
+RUN bat cache --build
+
 # Setup bashrc
 RUN cat >> ~/.bashrc << 'BASHRC'
 

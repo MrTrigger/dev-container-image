@@ -1,0 +1,4 @@
+--theme="Catppuccin Mocha"
+--style=numbers,changes,header
+--wrap=never
+--pager=never
