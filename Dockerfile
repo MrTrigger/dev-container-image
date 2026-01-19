@@ -63,8 +63,8 @@ RUN pacman -Syu --noconfirm --needed \
     zsh \
     && pacman -Scc --noconfirm
 
-# Create magnus user (uid 1000)
-RUN useradd -m -u 1000 -s /bin/bash -G wheel,docker magnus \
+# Create magnus user (uid 1000) with zsh
+RUN useradd -m -u 1000 -s /bin/zsh -G wheel,docker magnus \
     && echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
 
 # SSH setup
@@ -123,8 +123,13 @@ COPY --chown=magnus:magnus starship.toml /home/magnus/.config/starship.toml
 COPY --chown=magnus:magnus bat /home/magnus/.config/bat
 RUN bat cache --build
 
-# Setup bashrc
-RUN cat >> ~/.bashrc << 'BASHRC'
+# Setup zshrc
+RUN cat > ~/.zshrc << 'ZSHRC'
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory sharehistory histignorealldups
 
 # Environment
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
@@ -172,17 +177,23 @@ ff() { local file; file=$(fd --type f --hidden --follow --exclude .git . "${1:-.
 fkill() { local pid; pid=$(ps aux | sed 1d | fzf -m --height 40% --layout=reverse | awk '{print $2}'); [[ -n "$pid" ]] && echo $pid | xargs kill -${1:-9}; }
 gcb() { local branch; branch=$(git branch -a | grep -v HEAD | fzf --height 40% --layout=reverse | sed 's/.* //' | sed 's#remotes/[^/]*/##'); [[ -n "$branch" ]] && git checkout "$branch"; }
 
-source /usr/share/fzf/key-bindings.bash 2>/dev/null || true
-source /usr/share/fzf/completion.bash 2>/dev/null || true
+# FZF
+source /usr/share/fzf/key-bindings.zsh 2>/dev/null || true
+source /usr/share/fzf/completion.zsh 2>/dev/null || true
 
 # Starship prompt
-eval "$(starship init bash)"
+eval "$(starship init zsh)"
 
 cd /workspace 2>/dev/null || true
-BASHRC
+ZSHRC
 
-# Back to root for entrypoint
+# Back to root for entrypoint and skel setup
 USER root
+
+# Copy configs to /etc/skel (used by entrypoint for persistent volumes)
+RUN mkdir -p /etc/skel/.config \
+    && cp /home/magnus/.zshrc /etc/skel/.zshrc \
+    && cp /home/magnus/.config/starship.toml /etc/skel/.config/starship.toml
 
 # Create init.d directory for environment-specific scripts
 RUN mkdir -p /init.d
