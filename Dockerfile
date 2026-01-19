@@ -1,5 +1,6 @@
 FROM archlinux:latest
 
+# Cache bust: 2026-01-19
 # System packages
 RUN pacman -Syu --noconfirm --needed \
     base-devel \
