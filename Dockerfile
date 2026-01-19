@@ -127,6 +127,7 @@ alias vi='nvim'
 alias lg='lazygit'
 alias k='kubectl'
 alias kns='kubectl config set-context --current --namespace'
+alias cl='claude --dangerously-skip-permissions'
 
 source /usr/share/fzf/key-bindings.bash 2>/dev/null || true
 source /usr/share/fzf/completion.bash 2>/dev/null || true
