@@ -161,6 +161,10 @@ alias kns='kubectl config set-context --current --namespace'
 alias cl='claude --dangerously-skip-permissions'
 
 # Tools
+alias ls='eza --icons'
+alias ll='eza -la --icons'
+alias la='eza -a --icons'
+alias l='eza -l --icons'
 alias tree='eza --tree --icons'
 alias tree2='eza --tree --icons --level=2'
 alias tree3='eza --tree --icons --level=3'
