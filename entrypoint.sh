@@ -28,7 +28,8 @@ else
 fi
 
 # Ensure .zshrc exists with required config (handles persistent volume overwrite)
-if [ ! -f /home/magnus/.zshrc ] || ! grep -q "starship init zsh" /home/magnus/.zshrc 2>/dev/null; then
+# Check for 'alias ll' as marker - this ensures we update when adding new aliases
+if [ ! -f /home/magnus/.zshrc ] || ! grep -q "alias ll=" /home/magnus/.zshrc 2>/dev/null; then
     echo "Setting up .zshrc..."
     cp /etc/skel/.zshrc /home/magnus/.zshrc
     chown magnus:magnus /home/magnus/.zshrc
