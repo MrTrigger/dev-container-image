@@ -1,0 +1,269 @@
+# ---------command prompt ----------------
+add_newline = true
+command_timeout = 1000
+
+format = """
+$character\
+$os$hostname\
+$directory\
+$git_branch\
+$git_status \
+$python\
+$aws\
+$golang\
+$nodejs\
+$rust\
+$conda\
+$pijul_channel\
+$lua\
+$rlang\
+$package\
+$buf\
+$memory_usage\
+$docker_context\
+[](fg:color8)$time[ ](fg:color8) [@](fg:color7) $cmd_duration
+[└─>](bold green) """
+
+
+continuation_prompt = '▶▶ '
+
+[time]
+disabled = false
+time_format = "%r" # Hour:Minute Format
+format = '[ 󱑍 $time ](bg:color8,fg:color10)'
+style = "bold"
+
+[cmd_duration]
+format = 'last command: [$duration](yellow)'
+
+# -----
+
+[character]
+success_symbol = "[>](bold green)"
+error_symbol = "[x](bold red)"
+vimcmd_symbol = "[<](bold green)"
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[bun]
+symbol = "bun "
+
+[c]
+symbol = "󰙱 "
+
+[cobol]
+symbol = "cobol "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = "cr "
+
+[cmake]
+symbol = "cmake "
+
+[daml]
+symbol = "daml "
+
+[dart]
+symbol = " "
+
+[deno]
+symbol = "deno "
+
+[dotnet]
+symbol = "󰪮 "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = "exs "
+
+[elm]
+symbol = "elm "
+
+[golang]
+symbol = "go "
+
+[guix_shell]
+symbol = "guix "
+
+[hg_branch]
+symbol = "hg "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = "jl "
+
+[kotlin]
+symbol = "kt "
+
+[lua]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+disabled = true
+style='bold dimmed white'
+threshold = 1
+format = "$symbol [${ram}(|${swap})]($style) "
+
+[meson]
+symbol = "meson "
+
+[nim]
+symbol = "nim "
+
+[nix_shell]
+symbol = "nix "
+
+[ocaml]
+symbol = "ml "
+
+[opa]
+symbol = "opa "
+
+[os]
+format = '[$symbol](bold white) '
+disabled = false
+
+[os.symbols]
+Alpine = "alp "
+Amazon = "amz "
+Android = "andr "
+Arch = " "
+CentOS = " "
+Debian = " "
+DragonFly = "dfbsd "
+Emscripten = "emsc "
+EndeavourOS = "ndev "
+Fedora = " "
+FreeBSD = "fbsd "
+Garuda = "garu "
+Gentoo = "gent "
+HardenedBSD = "hbsd "
+Illumos = "lum "
+Linux = " "
+Macos = " "
+Manjaro = "mjo "
+Mariner = "mrn "
+MidnightBSD = "mid "
+Mint = "mint "
+NetBSD = "nbsd "
+NixOS = "nix "
+OpenBSD = "obsd "
+openSUSE = "osuse "
+OracleLinux = "orac "
+Pop = "pop "
+Raspbian = " "
+Redhat = "rhl "
+RedHatEnterprise = "rhel "
+Redox = "redox "
+Solus = "sol "
+SUSE = "suse "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
+
+# Shows the hostname
+[hostname]
+ssh_only = false
+format = 'on [$hostname](bold yellow) '
+disabled = false
+ssh_symbol = " "
+
+# Shows current directory
+[directory]
+truncation_length = 3
+fish_style_pwd_dir_length=2
+home_symbol = '󰋜 ~'
+read_only_style = '197'
+read_only = '  '
+format = 'at [$path]($style)[$read_only]($read_only_style) '
+
+# Shows current git branch
+[git_branch]
+symbol = " "
+format = 'via [$symbol$branch]($style)'
+# truncation_length = 4
+truncation_symbol = '…/'
+style = 'bold green'
+
+# Shows current git status
+[git_status]
+format = '[$all_status$ahead_behind]($style) '
+style = 'bold green'
+conflicted = '🏳'
+up_to_date = ''
+untracked = ' '
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+stashed = ' '
+modified = ' '
+staged = '[++\($count\)](green)'
+renamed = '襁 '
+deleted = ' '
+
+
+# ---
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = "pl "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[pulumi]
+symbol = "pulumi "
+
+[purescript]
+symbol = "purs "
+
+[python]
+symbol = " "
+pyenv_version_name = true
+
+[raku]
+symbol = "raku "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[spack]
+symbol = "spack "
+
+[sudo]
+symbol = "sudo "
+
+[swift]
+symbol = "swift "
+
+[terraform]
+symbol = "󱁢 "
+
+[zig]
+symbol = "zig "

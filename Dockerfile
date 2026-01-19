@@ -115,6 +115,9 @@ RUN export PATH="$HOME/.local/share/fnm:$PATH" \
 RUN git clone https://github.com/LazyVim/starter ~/.config/nvim \
     && rm -rf ~/.config/nvim/.git
 
+# Copy starship config
+COPY --chown=magnus:magnus starship.toml /home/magnus/.config/starship.toml
+
 # Setup bashrc
 RUN cat >> ~/.bashrc << 'BASHRC'
 
