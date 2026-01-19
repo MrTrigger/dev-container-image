@@ -49,6 +49,18 @@ if [ ! -f /home/magnus/.config/starship.toml ] && [ -f /etc/skel/.config/starshi
     chown -R magnus:magnus /home/magnus/.config
 fi
 
+# Ensure fnm and Node.js are installed (handles persistent volume overwrite)
+if [ ! -f /home/magnus/.local/share/fnm/fnm ]; then
+    echo "Installing fnm and Node.js..."
+    su - magnus -c '
+        curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+        export PATH="$HOME/.local/share/fnm:$PATH"
+        eval "$(fnm env)"
+        fnm install --lts
+        fnm default lts-latest
+    '
+fi
+
 # Fix fnm aliases if they point to old /config/ path (from linuxserver image)
 FNM_ALIASES="/home/magnus/.local/share/fnm/aliases"
 if [ -d "$FNM_ALIASES" ] && ls -la "$FNM_ALIASES" 2>/dev/null | grep -q "/config/"; then
