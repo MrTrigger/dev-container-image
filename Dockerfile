@@ -55,6 +55,11 @@ RUN pacman -Syu --noconfirm --needed \
     postgresql \
     eza \
     bat \
+    starship \
+    sops \
+    age \
+    go-task \
+    zsh \
     && pacman -Scc --noconfirm
 
 # Create magnus user (uid 1000)
@@ -161,6 +166,9 @@ gcb() { local branch; branch=$(git branch -a | grep -v HEAD | fzf --height 40% -
 
 source /usr/share/fzf/key-bindings.bash 2>/dev/null || true
 source /usr/share/fzf/completion.bash 2>/dev/null || true
+
+# Starship prompt
+eval "$(starship init bash)"
 
 cd /workspace 2>/dev/null || true
 BASHRC
